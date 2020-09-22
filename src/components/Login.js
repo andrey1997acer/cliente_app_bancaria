@@ -22,12 +22,11 @@ const Login = (props) => {
   
       if (login.data.status) {
           props.setToken(login.data.token)
-          props.setId(login.data.id)
-          props.setIsLogin(false)
+          props.setRouter('transaction')
   
   
       } else {
-          props.setIsLogin(true)
+          props.setRouter('login')
           Notification["error"]({
           title: "Aviso",
           description: `Email or password incorrect`,
@@ -46,9 +45,9 @@ const Login = (props) => {
   return (
     <>
       <h1 className="text-center">Login</h1>
-
+      <div className="container m-4">
       <Panel bordered style={{ background: "#F1F3F4" }}>
-        <div className="form-row">
+        <div className="form-row ">
           <div className="form-group col-md-12">
             <h5 className="text-center">Email</h5>
             <input
@@ -83,6 +82,7 @@ const Login = (props) => {
           </div>
         </div>
       </Panel>
+      </div>
     </>
   );
 };

@@ -4,20 +4,27 @@ import "./App.css";
 import Button from "./components/Buttons/Button";
 import "rsuite/dist/styles/rsuite-default.css";
 import { Notification } from "rsuite";
-import Login from "./components/Buttons/Login";
+import Login from "./components/Login";
 import Transaction from "./components/Transactions";
+import CreditCard from "./components/CreditCard";
+
 
 function App() {
- const [isLogin, setIsLogin] = useState(true);
+ const [router, setRouter] = useState('login');
  const [token, setToken] = useState("");
- const [id, setId] = useState("");
+ const [fingerprint, setFingerprint] = useState("");
+ const [transaction, setTransaction] = useState({});
+
+ 
 
  console.log(`Valor dewl token desde app ${token}`)
 
 
   return (
     <div className="App container">
-     {isLogin? <Login setIsLogin={setIsLogin} setToken={setToken} setId={setId}/>: <Transaction token={token}  id={id}/>}
+     {router === 'login' ? <Login setRouter={setRouter} setToken={setToken} />
+     : router ==='transaction'?<Transaction setTransaction={setTransaction} token={token}   setRouter={setRouter} setFingerprint={setFingerprint}/>
+     : <CreditCard transaction={transaction} />}
     </div>
   );
 }
