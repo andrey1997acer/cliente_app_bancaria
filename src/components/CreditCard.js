@@ -1,13 +1,13 @@
 import axios from 'axios';
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Panel, Button, Notification } from "rsuite";
 
 const CreditCard = (props) => {
     const [tipo, setTipo] = useState("Credito")
-    const [numero, setNumero] = useState("")
-    const [fecha, setFecha] = useState("")
-    const [csv, setCsv] = useState("")
-    const [nombre, setNombre] = useState("")
+    const [numero, setNumero] = useState("12345")
+    const [fecha, setFecha] = useState("12345")
+    const [csv, setCsv] = useState("274")
+    const [nombre, setNombre] = useState("Kimberly Soto Vargas")
 
 
     const cancelarTransaction = async () => {
@@ -21,25 +21,43 @@ const CreditCard = (props) => {
     }
     const pago = async () => {
         const pago = await axios.post("http://localhost:4000/api/pay", {
-                tipo:tipo,
-                numero:numero,
-                fecha:fecha,
-                csv:csv,
-                nombre:nombre
-            });
+            tipo: tipo,
+            numero: numero,
+            fecha: fecha,
+            csv: csv,
+            nombre: nombre
+
+        });
+
+        if (pago) {
+            if (pago.data.status === true) {
+                Notification["success"]({
+                    title: "Estado de la transacción",
+                    description: `La transaccion se realizo satisfactariamente`,
+                    duration: 3000,
+                });
+                props.setRouter("transaction")
+            }else {
+                Notification["error"]({
+                    title: "Estado de la transacción",
+                    description: `La transaccion fue denegada`,
+                    duration: 3000,
+                });
+            }
+        }
 
     }
 
-    const validarPago = ()=>{
-        if(!tipo || !numero || !fecha || !csv || !nombre){
+    const validarPago = () => {
+        if (!tipo || !numero || !fecha || !csv || !nombre) {
             Notification["error"]({
                 title: "Error",
                 description: `All fields are required`,
                 duration: 3000,
-              });
-        }else{
-           pago() 
-            
+            });
+        } else {
+            pago()
+
         }
     }
     return (<>
@@ -105,32 +123,33 @@ const CreditCard = (props) => {
                         onClick={() => {
                             cancelarTransaction()
                         }}
-                        
+
                         className="mr-3"
                         alt="Generar Codigo"
                         appearance="primary"
-                        style={{ float: "right" }}
+                        style={{ float: "right", marginLeft: 6 }}
+
                     >
                         {" "}
-                        Cancelar 
+                        Cancelar
                      </Button>
 
 
-                     <Button
+                    <Button
                         onClick={() => {
                             validarPago()
                         }}
-                        
+
                         alt="realizar pago"
                         appearance="primary"
                         color="green"
-                        style={{ float:'right' }}
+                        style={{ float: 'right' }}
                     >
                         {" "}
                         Realizar Pago
                      </Button>
 
-                    
+
 
 
                 </Panel>
