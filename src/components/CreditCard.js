@@ -76,7 +76,7 @@ const CreditCard = (props) => {
                     </div>
 
                     <div className="form-group col-md-6">
-                        <h5 className="text-center">Número de targeta</h5>
+                        <h5 className="text-center">Número de tarjeta</h5>
                         <input
                             type="number"
                             className="form-control"
