@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import axios from "axios";
 import { Panel, Button, Notification } from "rsuite";
 
@@ -6,27 +6,42 @@ import { Panel, Button, Notification } from "rsuite";
 const Login = (props) => {
   const [email, setEmail] = useState("andreyfdelgado@gmail.com");
   const [pass, setPass] = useState("0000");
+  const [getToken, setGetToken] = useState(false);
+  
 
-  const loginHandled = async () => {
-    const login = await axios.post("http://localhost:4000/api/login", {
-      email: email,
-      password: pass,
-    });
-    console.log(login);
+  useEffect(()=>{
 
-    if (login.data.status) {
-        props.setIsLogin(false)
-
-
-    } else {
-        props.setIsLogin(true)
-      Notification["error"]({
-        title: "Aviso",
-        description: `Email or password incorrect`,
-        duration: 3000,
+    const loginHandled = async () => {
+      const login = await axios.post("http://localhost:4000/api/login", {
+        email: email,
+        password: pass,
       });
-    }
-  };
+  
+     
+  
+  
+      if (login.data.status) {
+          props.setToken(login.data.token)
+          props.setId(login.data.id)
+          props.setIsLogin(false)
+  
+  
+      } else {
+          props.setIsLogin(true)
+          Notification["error"]({
+          title: "Aviso",
+          description: `Email or password incorrect`,
+          duration: 3000,
+        });
+      }
+    };
+
+  if(getToken){
+    loginHandled()
+  }
+    
+    
+  },[getToken])
 
   return (
     <>
@@ -55,7 +70,9 @@ const Login = (props) => {
 
           <div className="form-group col-md-12">
             <Button
-              onClick={loginHandled}
+              onClick={()=>{
+                setGetToken(true)
+              }}
               alt="Iniciar Sesión"
               appearance="primary"
               style={{ float: "right" }}

@@ -9,10 +9,15 @@ import Transaction from "./components/Transactions";
 
 function App() {
  const [isLogin, setIsLogin] = useState(true);
+ const [token, setToken] = useState("");
+ const [id, setId] = useState("");
+
+ console.log(`Valor dewl token desde app ${token}`)
+
 
   return (
     <div className="App container">
-     {isLogin? <Login setIsLogin={setIsLogin}/>: <Transaction />}
+     {isLogin? <Login setIsLogin={setIsLogin} setToken={setToken} setId={setId}/>: <Transaction token={token}  id={id}/>}
     </div>
   );
 }
