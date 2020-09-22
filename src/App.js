@@ -24,7 +24,7 @@ function App() {
     <div className="App container">
      {router === 'login' ? <Login setRouter={setRouter} setToken={setToken} />
      : router ==='transaction'?<Transaction setTransaction={setTransaction} token={token}   setRouter={setRouter} setFingerprint={setFingerprint}/>
-     : <CreditCard transaction={transaction} />}
+     : <CreditCard transaction={transaction} setRouter={setRouter}/>}
     </div>
   );
 }

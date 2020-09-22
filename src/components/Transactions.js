@@ -190,7 +190,7 @@ const Transaction = (props) => {
                         style={{ float:'right' }}
                     >
                         {" "}
-                        Realizar Pago
+                        Siguiente
                      </Button>
 
 
