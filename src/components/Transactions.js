@@ -26,7 +26,7 @@ const Transaction = (props) => {
         if (x_amount && isGenerado) {
             const cadena = props.token + "^" + x_fp_sequence + "^" + x_fp_timestamp + "^" + x_amount + "^";
                 const hmac = crypto.HmacMD5(cadena, 'transactionKey');
-            const transaccion = await axios.post("http://localhost:4000/api/trasaction", {
+            const transaccion = await axios.post("https://andrey1997acer.codes/api/trasaction", {
                 token:props.token,
                 x_fp_sequence:x_fp_sequence,
                 x_fp_timestamp:x_fp_timestamp,
@@ -45,7 +45,7 @@ const Transaction = (props) => {
 
 
     const getX_fp_timestamp = async () => {
-        const fecha = await axios.get("http://localhost:4000/api/date");
+        const fecha = await axios.get("https://andrey1997acer.codes/api/date");
 
         if(fecha){
             setx_fp_timestamp(fecha.data.fecha)

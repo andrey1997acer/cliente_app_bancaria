@@ -11,7 +11,7 @@ const CreditCard = (props) => {
 
 
     const cancelarTransaction = async () => {
-        const res = await axios.put(`http://localhost:4000/api/transaction-cancel/${props.transaction.x_trans_id}`, {
+        const res = await axios.put(`https://andrey1997acer.codes/api/transaction-cancel/${props.transaction.x_trans_id}`, {
             status: 3
         });
 
@@ -20,7 +20,7 @@ const CreditCard = (props) => {
 
     }
     const pago = async () => {
-        const pago = await axios.post("http://localhost:4000/api/pay", {
+        const pago = await axios.post("https://andrey1997acer.codes/api/pay", {
             tipo: tipo,
             numero: numero,
             fecha: fecha,
@@ -62,12 +62,12 @@ const CreditCard = (props) => {
     }
     return (<>
         <div>
-            <h1 className="text-center">Datos de Targeta</h1>
+            <h1 className="text-center">Datos de Tarjeta</h1>
             <div className="container m-4">
                 <Panel bordered style={{ background: "#F1F3F4" }}>
 
                     <div className="form-group col-md-6">
-                        <h5 className="text-center">Tipo de targeta</h5>
+                        <h5 className="text-center">Tipo de tarjeta</h5>
                         <select className="form-control" value={tipo} onChange={(e) => setTipo(e.target.value)}>
                             <option key="100" value="100">Credito</option>
                             <option key="101" value="101">Debito</option>
